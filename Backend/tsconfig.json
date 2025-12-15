@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    /* File Layout */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* Module Resolution */
+    "target": "es2016",
+    "module": "commonjs",             
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+
+    /* Strict Typechecking */
+    "strict": true,
+    "noUncheckedIndexedAccess": true, /* Keeps your strict safety */
+    
+    /* Misc */
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"]
+}

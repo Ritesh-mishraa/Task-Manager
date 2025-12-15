@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@config "../tailwind.config.js"; 
+
+/* ... rest of your global styles ... */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  body {
+    @apply bg-slate-50 text-slate-800;
+  }
+}
+
+/* Custom Scrollbar code... */
