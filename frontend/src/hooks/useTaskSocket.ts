@@ -6,6 +6,7 @@ import type { Task } from '../types';
 // Singleton socket connection (prevents multiple connections)
 let socket: Socket;
 
+const SOCKET_URL = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:5001';
 export const useTaskSocket = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +14,7 @@ export const useTaskSocket = () => {
   useEffect(() => {
     // Initialize Socket
     if (!socket) {
-      socket = io('http://localhost:5000');
+      socket = io(SOCKET_URL);
     }
 
     // Fetch Initial Data
