@@ -31,7 +31,6 @@ const TaskCard = ({ task }: TaskCardProps) => {
   return (
     <div className="group bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-500/50 transition-all duration-200 flex flex-col gap-3 relative">
 
-      {/* Header: Priority & Delete */}
       <div className="flex justify-between items-start">
         <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-full border ${priorityConfig[task.priority]}`}>
           {task.priority}
@@ -45,16 +44,16 @@ const TaskCard = ({ task }: TaskCardProps) => {
         </button>
       </div>
 
-      {/* Content */}
+    
       <div>
         <h3 className="font-semibold text-slate-800 dark:text-slate-100 text-base leading-tight mb-1">{task.title}</h3>
         <p className="text-slate-500 dark:text-slate-400 text-xs line-clamp-2">{task.description}</p>
       </div>
 
-      {/* Divider */}
+    
       <div className="h-px bg-slate-100 dark:bg-slate-700 w-full" />
 
-      {/* Footer: Date & Assignee */}
+  
       <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
         <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-700/50 px-2 py-1 rounded-md">
           <Clock size={12} />
@@ -74,7 +73,6 @@ const TaskCard = ({ task }: TaskCardProps) => {
         </div>
       </div>
 
-      {/* Status Action Bar */}
       <div className="mt-2 pt-2 border-t border-slate-100 dark:border-slate-700/50">
         <div className="relative">
           <select
@@ -87,7 +85,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
             <option value="Review">Move to: Review</option>
             <option value="Completed">Move to: Completed</option>
           </select>
-          {/* Custom Arrow Icon for Dropdown */}
+        
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none text-slate-400">
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
           </div>

@@ -12,7 +12,7 @@
 
     /* Strict Typechecking */
     "strict": true,
-    "noUncheckedIndexedAccess": true, /* Keeps your strict safety */
+    "noUncheckedIndexedAccess": true, 
     
     /* Misc */
     "skipLibCheck": true,

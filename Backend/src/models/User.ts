@@ -1,7 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-// 1. Interface
 export interface IUser extends Document {
   name: string;
   email: string;
@@ -9,7 +8,6 @@ export interface IUser extends Document {
   matchPassword: (enteredPassword: string) => Promise<boolean>;
 }
 
-// 2. Schema
 const UserSchema: Schema = new Schema(
   {
     name: { type: String, required: true },
@@ -19,9 +17,7 @@ const UserSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-// 3. Pre-save hook (FIXED)
 UserSchema.pre('save', async function (next) {
-  // FIX: Double cast (as unknown as IUser) to bypass the safety check
   const user = this as unknown as IUser; 
 
   if (!user.isModified('passwordHash')) {
@@ -33,7 +29,7 @@ UserSchema.pre('save', async function (next) {
   next();
 });
 
-// 4. Method
+
 UserSchema.methods.matchPassword = async function (enteredPassword: string) {
   return await bcrypt.compare(enteredPassword, this.passwordHash);
 };

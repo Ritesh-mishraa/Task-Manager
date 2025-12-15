@@ -5,17 +5,17 @@ import type { User } from '../types';
 
 const CreateTask = () => {
   const navigate = useNavigate();
-  const [users, setUsers] = useState<User[]>([]); // Store list of users
+  const [users, setUsers] = useState<User[]>([]); 
   
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     priority: 'Medium',
     dueDate: '',
-    assignedToId: '', // New field
+    assignedToId: '', 
   });
 
-  // 1. Fetch Users on Load
+  // Fetch Users on Load
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -31,7 +31,6 @@ const CreateTask = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // If assignedToId is empty string, remove it so backend treats it as undefined/null
       const payload = { ...formData };
       if (!payload.assignedToId) delete (payload as any).assignedToId;
 

@@ -11,12 +11,12 @@ export const useTaskSocket = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. Initialize Socket
+    // Initialize Socket
     if (!socket) {
       socket = io('http://localhost:5000');
     }
 
-    // 2. Fetch Initial Data
+    // Fetch Initial Data
     const fetchTasks = async () => {
       try {
         const { data } = await api.get('/tasks');
@@ -30,7 +30,7 @@ export const useTaskSocket = () => {
 
     fetchTasks();
 
-    // 3. Define Event Listeners
+    // Define Event Listeners
     const handleTaskCreated = (newTask: Task) => {
       setTasks((prev) => [newTask, ...prev]);
     };
@@ -43,12 +43,12 @@ export const useTaskSocket = () => {
       setTasks((prev) => prev.filter((t) => t._id !== deletedTaskId));
     };
 
-    // 4. Attach Listeners
+    // Attach Listeners
     socket.on('task:created', handleTaskCreated);
     socket.on('task:updated', handleTaskUpdated);
     socket.on('task:deleted', handleTaskDeleted);
 
-    // 5. Cleanup
+    // Cleanup
     return () => {
       socket.off('task:created', handleTaskCreated);
       socket.off('task:updated', handleTaskUpdated);

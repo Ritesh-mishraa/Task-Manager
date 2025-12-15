@@ -18,7 +18,6 @@ const Register = () => {
       login(data.token, data);
       navigate('/');
     } catch (err: any) {
-      // Handle Zod array errors or simple message
       const msg = Array.isArray(err.response?.data?.message) 
         ? err.response.data.message[0].message 
         : err.response?.data?.message;

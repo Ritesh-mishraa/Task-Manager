@@ -1,4 +1,3 @@
-// src/app.ts
 import express, { Application } from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
@@ -51,7 +50,7 @@ io.on('connection', (socket) => {
   });
 });
 
-// Make io accessible globally (optional, or pass it via middleware)
+// Make io accessible globally)
 app.set('io', io);
 
 const PORT = process.env.PORT || 5000;

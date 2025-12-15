@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard'; // Import the real Dashboard
+import Dashboard from './pages/Dashboard'; 
 import CreateTask from './pages/CreateTask';
 
 // Protected Route Component

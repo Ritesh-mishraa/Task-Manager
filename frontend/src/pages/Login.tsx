@@ -14,8 +14,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await api.post('/auth/login', { email, password });
-      login(data.token, data); // Save user & token
-      navigate('/'); // Redirect to Dashboard
+      login(data.token, data); 
+      navigate('/');
     } catch (err: any) {
       setError(err.response?.data?.message || 'Login failed');
     }

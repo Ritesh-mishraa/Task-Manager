@@ -3,7 +3,6 @@ import User from '../models/User';
 import jwt from 'jsonwebtoken';
 import { z } from 'zod';
 
-// Zod Schema for Validation
 const registerSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
@@ -22,21 +21,16 @@ const generateToken = (id: string) => {
   });
 };
 
-// @desc    Register a new user
-// @route   POST /api/auth/register
 export const registerUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    // 1. Validate Input
     const { name, email, password } = registerSchema.parse(req.body);
 
-    // 2. Check if user exists
     const userExists = await User.findOne({ email });
     if (userExists) {
       res.status(400).json({ message: 'User already exists' });
       return;
     }
 
-    // 3. Create user
     const user = await User.create({
       name,
       email,
@@ -48,7 +42,6 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
         _id: user._id,
         name: user.name,
         email: user.email,
-        // FIX 1: Cast _id to unknown then string to satisfy TS
         token: generateToken(user._id as unknown as string),
       });
     } else {
@@ -56,7 +49,6 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     }
   } catch (error: any) {
     if (error instanceof z.ZodError) {
-      // FIX 2: Use .issues instead of .errors for Zod
       res.status(400).json({ message: error.issues });
     } else {
       res.status(500).json({ message: error.message });
@@ -64,8 +56,6 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
   }
 };
 
-// @desc    Auth user & get token
-// @route   POST /api/auth/login
 export const loginUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = loginSchema.parse(req.body);
@@ -77,7 +67,6 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        // FIX 3: Cast _id to unknown then string
         token: generateToken(user._id as unknown as string),
       });
     } else {

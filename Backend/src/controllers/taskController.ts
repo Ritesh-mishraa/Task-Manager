@@ -2,20 +2,17 @@ import { Request, Response } from 'express';
 import Task from '../models/Task';
 import { z } from 'zod';
 
-// Zod Schema for Task Creation
 const taskSchema = z.object({
   title: z.string().min(3),
   description: z.string(),
-  dueDate: z.string().transform((str) => new Date(str)), // Convert string to Date
+  dueDate: z.string().transform((str) => new Date(str)),
   priority: z.enum(['Low', 'Medium', 'High', 'Urgent']),
   assignedToId: z.string().optional(),
 });
 
-// @desc    Get all tasks
-// @route   GET /api/tasks
+
 export const getTasks = async (req: Request, res: Response): Promise<void> => {
   try {
-    // Basic Filtering
     const filter: any = {};
     if (req.query.status) filter.status = req.query.status;
     if (req.query.priority) filter.priority = req.query.priority;
@@ -31,8 +28,6 @@ export const getTasks = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-// @desc    Create a new task
-// @route   POST /api/tasks
 export const createTask = async (req: Request, res: Response): Promise<void> => {
   try {
     const validatedData = taskSchema.parse(req.body);
@@ -40,14 +35,11 @@ export const createTask = async (req: Request, res: Response): Promise<void> => 
     // Create Task
     const task = await Task.create({
       ...validatedData,
-      // @ts-ignore - req.user is added by auth middleware (we will add this next)
       creatorId: req.user._id,
     });
 
-    // Populate user details for the frontend
     const populatedTask = await task.populate('assignedToId', 'name email');
 
-    // Emit Socket Event for Real-Time Update
     const io = req.app.get('io');
     io.emit('task:created', populatedTask);
 
@@ -61,8 +53,7 @@ export const createTask = async (req: Request, res: Response): Promise<void> => 
   }
 };
 
-// @desc    Update task status or assignment
-// @route   PATCH /api/tasks/:id
+
 export const updateTask = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
@@ -87,8 +78,6 @@ export const updateTask = async (req: Request, res: Response): Promise<void> => 
   }
 };
 
-// @desc    Delete a task
-// @route   DELETE /api/tasks/:id
 export const deleteTask = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
